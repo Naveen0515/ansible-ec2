@@ -1,11 +1,11 @@
 ---
-- hosts: server
+- hosts: localhost
   tasks:
     - name: Setting up the Security Group for new instance
       ec2_group:
           name: Ansible_Security_Group_AWS
           description: Allowing Traffic on port 22 and 80
-          region: ap-southeast-1
+          region: ap-south-1
           rules:
            - proto: tcp
              from_port: 80
@@ -29,7 +29,7 @@
     - name: Provision EC2 instance
       ec2:
          key_name: AWS-Ansible
-         region: ap-southeast-1
+         region: ap-south-1
          instance_type: t2.micro
          image: ami-67a6e604
          wait: yes
@@ -42,7 +42,6 @@
               volume_type: gp2
               volume_size: 8
          monitoring: yes
-         vpc_subnet_id: subnet-18e7fa93
          assign_public_ip: yes
          group: Ansible_Security_Group_AWS
       register: ec2
